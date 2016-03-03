@@ -5,18 +5,18 @@ using NSubstitute;
 
 namespace ComplexImplementation
 {
-    public class DummyRepository<T,K> : IRepository<T,K> where T : class, new()
+    public class DummyRepository<T,TK> : IRepository<T,TK> where T : class, new()
     {
-        private IDbConnection dummyConnection;
+        private readonly IDbConnection _dummyConnection;
 
         // Normally this would be satisfied with IoC, but its just being mocked here
         public DummyRepository()
-        { dummyConnection = Substitute.For<IDbConnection>(); }
+        { _dummyConnection = Substitute.For<IDbConnection>(); }
 
         public bool Create(T entity)
         { return true; }
 
-        public T Retrieve(K id)
+        public T Retrieve(TK id)
         { return new T(); }
 
         public bool Update(T entity)
@@ -26,9 +26,9 @@ namespace ComplexImplementation
         { return true; }
 
         public IEnumerable<T> FindAll(IFindQuery<T> query)
-        { return query.Execute(dummyConnection); }
+        { return query.Execute(_dummyConnection); }
 
         public bool Execute(IExecuteQuery query)
-        { return query.Execute(dummyConnection); }
+        { return query.Execute(_dummyConnection); }
     }
 }

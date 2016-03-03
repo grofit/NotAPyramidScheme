@@ -14,7 +14,7 @@ namespace ALRApplicaiton.Bootstrap
     {
         public Container Setup()
         {
-            var registryCollation = new Registry();
+            Registry registryCollation = new Registry();
             registryCollation.IncludeRegistry<SimpleRegistry>();
             registryCollation.IncludeRegistry<ComplexRegistry>();
 
