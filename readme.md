@@ -1,5 +1,7 @@
 # HELLO
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/89137fedbdce44fbb3e015eeae462d1a)](https://www.codacy.com/app/PartTimeLegend/NotAPyramidScheme?utm_source=github.com&utm_medium=referral&utm_content=PartTimeLegend/NotAPyramidScheme&utm_campaign=badger)
+
 So if you open the solution there should be 3 folders:
 
 - Shared (Stuff used in both application scenarios)
