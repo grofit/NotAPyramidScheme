@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ComplexDependency;
 using ComplexImplementation;
 using CRApplication.Bootstrap;
 using CRApplication.DummyClasses;
 using SimpleDependency;
+using StructureMap;
 
 namespace CRApplication
 {
-    class Program
+    internal class Program
     {
         /// <summary>
         /// Pretend this is some sort of action or logic that depends on stuff
@@ -25,8 +27,8 @@ namespace CRApplication
         /// </summary>
         private static void ComplexScenario(ILogger logger, IRepository<SomeDummyClass, int> repository)
         {
-            var query = new GetAllQuery<SomeDummyClass>();
-            var results = repository.FindAll(query);
+            GetAllQuery<SomeDummyClass> query = new GetAllQuery<SomeDummyClass>();
+            IEnumerable<SomeDummyClass> results = repository.FindAll(query);
             logger.DoSomeLogging($"Got {results.Count()} Records From Db");
         }
 
@@ -41,11 +43,11 @@ namespace CRApplication
         /// not to be confused with ServiceLocation which is a bad pattern.
         /// </summary>
         /// <param name="args"></param>
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            var container = new StructuremapBootstrap().Setup();
-            var logger = container.GetInstance<ILogger>();
-            var repository = container.GetInstance<IRepository<SomeDummyClass, int>>();
+            Container container = new StructuremapBootstrap().Setup();
+            ILogger logger = container.GetInstance<ILogger>();
+            IRepository<SomeDummyClass, int> repository = container.GetInstance<IRepository<SomeDummyClass, int>>();
 
             SimpleScenario(logger);
             ComplexScenario(logger, repository);
